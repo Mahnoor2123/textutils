@@ -1,9 +1,9 @@
 
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import Alert from './components/Alert';
-// import About from './components/About';
-import Navbar from "./components/Navbar";
+import About from './components/About';
+import Navbar from './components/Navbar'
 import TextForm from "./components/TextForm";
 import { useState } from 'react';
 
@@ -71,15 +71,28 @@ setTimeout(() => {
 
   return (
     <>
-    <Navbar   title="Textutils" about="Textutils about" toggleMode={toggleMode} toggleYellow={toggleYellow} toggleGreen={toggleGreen} mode={mode}/>
-    <Alert alert={alert}/>
-    <div className="container">
-        <TextForm btnGreen="green" showAlert={showAlert} heading="Enter Text below to analyze" mode={mode}/>
-    </div>
-    {/* <About/> */}
-    
-  
+   
+
+     <BrowserRouter>
+       <Navbar mode={mode} setMode={setMode}
+        title="TextUtils" 
+  about="About" 
+
+  toggleMode={toggleMode}
+  toggleGreen={toggleGreen}
+  toggleYellow={toggleYellow} />
+      <Alert alert={alert} />
+      <div className="container my-3">
+        <Routes>
+          <Route path="/" element={<TextForm mode={mode} />} />
+          <Route path="/about" element={<About />} />
+          {/* 👇 optional 404 / fallback route */}
+          <Route path="*" element={<h2>404 - Page Not Found</h2>} />
+        </Routes>
+      </div>
+    </BrowserRouter>
     </>
+   
   );
 }
 
